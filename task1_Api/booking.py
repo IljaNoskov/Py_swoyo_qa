@@ -72,13 +72,3 @@ class Booking:
             else:
                 self.id = -1
         return result
-
-
-'''
-print('new booking')
-k = Booking()
-print(k.create())
-print(k.get())
-print(k.update_date('2022-01-01', '2023-01-01'))
-print(k.delete())
-'''

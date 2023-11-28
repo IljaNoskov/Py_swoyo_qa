@@ -3,15 +3,14 @@ from booking import Booking
 
 def work_with_booking_list(b_list):
     def work_with_booking(booking):
-        # О вариативности действий
+        # выбор вариативности действий
         print('Select the action you want with the reservation')
         print('1 - create a new booking')
         print('2 - get information about an already created reservation')
         print('3 - change booking dates')
         print('4 - delete a reservation')
         print('5 - terminate the program')
-        num = input()
-        print(num, num == '5')
+        num = input('your action: ')
         # в зависимости от цифры отправляю разные запросы
         if num == '1':
             print('1 - Create a reservation with standard data')
@@ -40,7 +39,7 @@ def work_with_booking_list(b_list):
             print('Date update eeport')
             print(booking.update_date(chekin, chekout))
         elif num == '4':
-            print('Delete report')
+            print('Delete booking')
             print(booking.delete())
         elif num == '5':
             print('stop')
@@ -49,20 +48,30 @@ def work_with_booking_list(b_list):
             print('Incorrect input')
         print()
 
+    # Если список не пустой, то предлагаю пользователю выбрать, с каким бронированием он хочет работать
     if len(b_list) > 0:
         for i in range(len(b_list)):
             print(f'booking № {i}: {b_list[i].make_json()}')
             print()
-            n = int(input('Chose your booking number (or -1 to stop:'))
-            if n == -1:
-                return 0
+        print(f'chose {len(b_list)} to create new booking')
+        n = int(input('Chose your booking number (or -1 to stop:'))
+        if n == -1:
+            return 0
+        elif 0 <= n < len(b_list):
             while True:
                 if work_with_booking(b_list[n]) == 0:
                     break
+        elif n == len(b_list):
+            b = Booking()
+            b_list.append(b)
+            while True:
+                if work_with_booking(b) == 0:
+                    break
+
     else:
+        # если список пустой, то создаю новую бронь
         b = Booking()
         b_list.append(b)
-        print('start work solo booking')
         while True:
             if work_with_booking(b) == 0:
                 break
